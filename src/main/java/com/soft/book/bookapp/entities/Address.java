@@ -1,9 +1,7 @@
 package com.soft.book.bookapp.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Address {
@@ -11,12 +9,18 @@ public class Address {
     @Id
     @GeneratedValue
     private Long id;
+
     private String street;
+
     private Integer houseNumber;
+
     private Integer apartmentNumber;
+
     private String postalCode;
+
     @OneToMany
-    private Customer customer;
+    @JoinColumn(name = "customer_id")
+    private List<Customer> customers;
 
     public Address() {
     }
@@ -53,11 +57,19 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getId() {
+        return id;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 }

@@ -2,10 +2,7 @@ package com.soft.book.bookapp.entities;
 
 import com.sun.javafx.beans.IDProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
@@ -13,13 +10,18 @@ public class Customer {
     @Id
     @GeneratedValue
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
 
-    @ManyToOne()
+    @ManyToOne
     private Address address;
+
     private String login;
+
     private String password;
 
     public Customer(){
