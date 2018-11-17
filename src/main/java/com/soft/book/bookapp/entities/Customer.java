@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String firstName;
@@ -18,6 +18,7 @@ public class Customer {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Address address;
 
     private String login;

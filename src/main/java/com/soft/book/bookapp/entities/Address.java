@@ -19,7 +19,6 @@ public class Address {
     private String postalCode;
 
     @OneToMany
-    @JoinColumn(name = "customer_id")
     private List<Customer> customers;
 
     public Address() {
