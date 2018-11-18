@@ -18,7 +18,7 @@ public class Customer {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+   // @JoinColumn(name = "customer_id")
     private Address address;
 
     private String login;

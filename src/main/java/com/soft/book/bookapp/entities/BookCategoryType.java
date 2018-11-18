@@ -4,5 +4,6 @@ public enum BookCategoryType {
     PROGRAMMING,
     LANGUAGE,
     HISTORY,
-    TECHNICS
+    TECHNICS,
+    IT
 }

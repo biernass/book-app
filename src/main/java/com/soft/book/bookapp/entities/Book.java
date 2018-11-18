@@ -14,7 +14,8 @@ public class Book {
 
     private String publisher;
 
-    private String author;
+    @ManyToOne
+    private Author author;
 
     @Enumerated(EnumType.STRING)
     private BookCategoryType bookCategoryType;
@@ -48,14 +49,6 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public BookCategoryType getBookCategoryType() {
