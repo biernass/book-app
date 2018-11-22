@@ -14,6 +14,19 @@ public class Author {
 
     private String lastName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Book> books;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAuthorName(){
+        return firstName + " " + lastName;
+    }
+
 }

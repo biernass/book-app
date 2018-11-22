@@ -18,7 +18,7 @@ public class Address {
 
     private String postalCode;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Customer> customers;
 
     public Address() {

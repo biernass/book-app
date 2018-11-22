@@ -2,6 +2,7 @@ package com.soft.book.bookapp.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Blob;
 
 @Entity
 public class Book {
@@ -14,7 +15,8 @@ public class Book {
 
     private String publisher;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "author_id")
     private Author author;
 
     @Enumerated(EnumType.STRING)
@@ -23,6 +25,8 @@ public class Book {
     private String ISBN;
 
     private BigDecimal price;
+
+    private Long inStock;
 
     public Book() {
     }
@@ -74,4 +78,14 @@ public class Book {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Long getInStock() {
+        return inStock;
+    }
+
+
 }
