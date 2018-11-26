@@ -34,13 +34,13 @@ public class BookDatabaseServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto findBookById(Long id) throws BookNotFoundException {
+    public BookDto findBookById(Long id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
             return bookDtoConverter.apply(book);
         } else {
-            throw new BookNotFoundException("Book with id: " + id + " not exist");
+            throw new BookNotFoundException(id);
         }
     }
 }

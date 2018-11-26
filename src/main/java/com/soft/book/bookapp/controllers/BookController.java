@@ -6,6 +6,8 @@ import com.soft.book.bookapp.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,30 +21,18 @@ public class BookController {
 
     Logger logger = LoggerFactory.getLogger(BookController.class);
 
-    @RequestMapping(method = RequestMethod.GET, name = "/books")
-    public List<BookDto> findAllBooks(){
+    @GetMapping(value = "/books")
+    public List<BookDto> findAllBooks() {
         return bookService.findAll();
     }
 
-//    @GetMapping(name = "/book/{id}")
-//    public BookDto bookById(@PathVariable Long id){
-//        try {
-//            return bookService.findBookById(id);
-//        } catch (BookNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/{id}")
+    @GetMapping(value = "/book/{id}")
     public BookDto bookById(@PathVariable Long id) {
-        try {
-            return bookService.findBookById(id);
-        } catch (BookNotFoundException e) {
-            logger.error("Product with id = " + id + " was not found");
-        }
-
-        return null;
+        BookDto bookDto = bookService.findBookById(id);
+        if(bookDto == null) throw new BookNotFoundException(id);
+        return bookDto;
     }
+
 
 }

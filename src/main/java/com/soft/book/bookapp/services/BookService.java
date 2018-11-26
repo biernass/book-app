@@ -11,5 +11,5 @@ public interface BookService {
 
      List<BookDto> findAll();
 
-     BookDto findBookById(Long id) throws BookNotFoundException;
+     BookDto findBookById(Long id);
 }
