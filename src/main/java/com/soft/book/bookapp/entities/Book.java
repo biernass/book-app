@@ -2,7 +2,6 @@ package com.soft.book.bookapp.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Blob;
 
 @Entity
 public class Book {
@@ -22,7 +21,7 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private BookCategoryType bookCategoryType;
 
-    private String ISBN;
+    private String isbn;
 
     private BigDecimal price;
 
@@ -63,12 +62,12 @@ public class Book {
         this.bookCategoryType = bookCategoryType;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public BigDecimal getPrice() {

@@ -1,6 +1,8 @@
 package com.soft.book.bookapp.controllers;
 
 import com.soft.book.bookapp.dto.BookDto;
+import com.soft.book.bookapp.entities.Book;
+import com.soft.book.bookapp.entities.BookCategoryType;
 import com.soft.book.bookapp.exceptions.BookNotFoundException;
 import com.soft.book.bookapp.services.BookService;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 public class BookController {
@@ -26,13 +29,26 @@ public class BookController {
         return bookService.findAll();
     }
 
-
-    @GetMapping(value = "/book/{id}")
+    @GetMapping(value = "/book/id={id}")
     public BookDto bookById(@PathVariable Long id) {
         BookDto bookDto = bookService.findBookById(id);
-        if(bookDto == null) throw new BookNotFoundException(id);
+//        if (bookDto == null) throw new BookNotFoundException("Book with id: " + id + " not exist");
         return bookDto;
     }
+
+    @GetMapping(value = "/book/isbn={isbn}")
+    public BookDto bookByISBN(@PathVariable String isbn) {
+        BookDto bookDto = bookService.findBookByIsbn(isbn);
+        if (bookDto == null) throw new BookNotFoundException("Book with ISBN: " + isbn + " not exist");
+        return bookDto;
+    }
+
+    @GetMapping(value = "/bookcategory/{category}")
+    public List<BookDto> booksByCategory(@PathVariable String category){
+        BookCategoryType bookCategoryType = BookCategoryType.valueOf(category.toUpperCase());
+        return bookService.findBooksByCategory(bookCategoryType);
+    }
+
 
 
 }
