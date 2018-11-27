@@ -59,9 +59,14 @@ public class BookDatabaseServiceImpl implements BookService {
     public List<BookDto> findBooksByCategory(BookCategoryType bookCategoryType) {
 
         Iterable<Book> books = bookRepository.findAllByBookCategoryType(bookCategoryType);
-        return StreamSupport.stream(books.spliterator(), true)
+        List<BookDto> bookDtoList = StreamSupport.stream(books.spliterator(), true)
                 .map(bookDtoConverter)
                 .collect(Collectors.toList());
+
+        if(bookDtoList.size() == 0) {
+            throw new BookNotFoundException("Any book in category: " + bookCategoryType.name());
+        }
+        return bookDtoList;
 
 //        Optional<Book> bookOptional = bookRepository.findBookByBookCategoryType(bookCategoryType);
 //        if(bookOptional.isPresent()){

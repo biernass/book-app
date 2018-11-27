@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -44,11 +45,13 @@ public class BookController {
     }
 
     @GetMapping(value = "/bookcategory/{category}")
-    public List<BookDto> booksByCategory(@PathVariable String category){
-        BookCategoryType bookCategoryType = BookCategoryType.valueOf(category.toUpperCase());
-        return bookService.findBooksByCategory(bookCategoryType);
+    public List<BookDto> booksByCategory(@PathVariable String category) {
+        for (BookCategoryType bt : BookCategoryType.values()) {
+            boolean exist = category.toUpperCase().equals(bt.name().toUpperCase());
+            if (exist == true) {
+                return bookService.findBooksByCategory(bt);
+            }
+        }
+        throw new BookNotFoundException("This category not exist");
     }
-
-
-
 }
