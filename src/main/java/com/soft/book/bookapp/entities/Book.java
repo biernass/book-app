@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class Book {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -86,5 +86,11 @@ public class Book {
         return inStock;
     }
 
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
+    public void setInStock(Long inStock) {
+        this.inStock = inStock;
+    }
 }

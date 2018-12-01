@@ -3,10 +3,8 @@ package com.soft.book.bookapp.services;
 import com.soft.book.bookapp.dto.BookDto;
 import com.soft.book.bookapp.entities.Book;
 import com.soft.book.bookapp.entities.BookCategoryType;
-import com.soft.book.bookapp.exceptions.BookNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
 
@@ -17,5 +15,7 @@ public interface BookService {
      BookDto findBookByIsbn(String isbn);
 
      List<BookDto> findBooksByCategory(BookCategoryType bookCategoryType);
+
+     Book saveBook(BookDto bookDto);
 
 }

@@ -16,7 +16,7 @@ public class BookDto {
 
     private String author;
 
-    private String  bookCategoryType;
+    private String bookCategoryType;
 
     private String ISBN;
 
@@ -81,6 +81,10 @@ public class BookDto {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String[] authorFirstAndLastNameInArray() {
+        return author.split(" ");
     }
 
     public String getBookCategoryType() {

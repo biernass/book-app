@@ -7,7 +7,7 @@ import java.util.List;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -17,6 +17,20 @@ public class Author {
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Book> books;
 
+    public Author() {
+    }
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Author(Long id, String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -25,8 +39,15 @@ public class Author {
         return lastName;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return firstName + " " + lastName;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

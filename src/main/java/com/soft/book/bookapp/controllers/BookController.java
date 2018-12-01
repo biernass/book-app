@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +34,12 @@ public class BookController {
     @GetMapping(value = "/book/id={id}")
     public BookDto bookById(@PathVariable Long id) {
         BookDto bookDto = bookService.findBookById(id);
-//        if (bookDto == null) throw new BookNotFoundException("Book with id: " + id + " not exist");
         return bookDto;
     }
 
     @GetMapping(value = "/book/isbn={isbn}")
     public BookDto bookByISBN(@PathVariable String isbn) {
         BookDto bookDto = bookService.findBookByIsbn(isbn);
-        if (bookDto == null) throw new BookNotFoundException("Book with ISBN: " + isbn + " not exist");
         return bookDto;
     }
 
@@ -54,4 +53,11 @@ public class BookController {
         }
         throw new BookNotFoundException("This category not exist");
     }
+
+    @PostMapping(value = "/books", consumes = "application/json")
+    public Book AddBook(@RequestBody BookDto bookDto){
+        return bookService.saveBook(bookDto);
+    }
+
+
 }
