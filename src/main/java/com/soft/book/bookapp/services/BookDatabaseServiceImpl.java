@@ -11,6 +11,8 @@ import com.soft.book.bookapp.repositories.AuthorRepository;
 import com.soft.book.bookapp.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,13 +78,23 @@ public class BookDatabaseServiceImpl implements BookService {
     }
 
     @Override
+
     public Book saveBook(BookDto bookDto) {
-        if (authorRepository.findAuthorByFirstNameAndAndLastName(bookDto.authorFirstAndLastNameInArray()[0],
-                bookDto.authorFirstAndLastNameInArray()[1]) == null) {
-            authorRepository.save(new Author(null, bookDto.authorFirstAndLastNameInArray()[0],
-                    bookDto.authorFirstAndLastNameInArray()[1]));
+
+        Optional<Author> author = authorRepository.findAuthorByFirstNameAndAndLastName
+                (bookDto.authorFirstAndLastNameInArray()[0],
+                        bookDto.authorFirstAndLastNameInArray()[1]);
+
+        if (author.isPresent()) {
+            Book book = bookConverter.apply(bookDto);
+            authorRepository.save(author.get());
+            book.setAuthor(author.get());
+            return bookRepository.save(book);
+
+        } else {
+            return bookRepository.save(bookConverter.apply(bookDto));
         }
-        return bookRepository.save(bookConverter.apply(bookDto));
+
     }
 }
 

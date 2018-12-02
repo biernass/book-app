@@ -14,16 +14,21 @@ public class Author {
 
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Book> books;
+//    @OneToMany(cascade = CascadeType.ALL,fetch= FetchType.LAZY)
+//    private List<Book> books;
 
     public Author() {
+    }
+
+    public Author(Long id) {
+        this.id = id;
     }
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 
     public Author(Long id, String firstName, String lastName) {
         this.firstName = firstName;
@@ -39,15 +44,21 @@ public class Author {
         return lastName;
     }
 
+
+
+    public Long getId() {
+        return id;
+    }
+
     public String getAuthorName() {
         return firstName + " " + lastName;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+//    public List<Book> getBooks() {
+//        return books;
+//    }
+//
+//    public void setBooks(List<Book> books) {
+//        this.books = books;
+//    }
 }
