@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -65,14 +66,34 @@ public class BookController {
             HttpHeaders httpHeaders = new HttpHeaders();
             URI locationURI =
                     uriComponents.path("/book/id=")
-                    .path(String.valueOf(book.getId()))
-                    .build()
-                    .toUri();
+                            .path(String.valueOf(book.getId()))
+                            .build()
+                            .toUri();
             httpHeaders.setLocation(locationURI);
             return new ResponseEntity<Book>(book, httpHeaders, HttpStatus.CREATED);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping(value = "/book/update/{id}", consumes = "application/json", produces = "application/json")
+    private ResponseEntity<Book> updateBook(@RequestBody BookDto bookDto, @PathVariable Long id,
+                                            UriComponentsBuilder uriComponents) {
+        if (bookDto != null) {
+            Book book = bookService.update(id, bookDto);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            URI locationURI =
+                    uriComponents.path("/book/id=")
+                            .path(String.valueOf(book.getId()))
+                            .build()
+                            .toUri();
+            httpHeaders.setLocation(locationURI);
+            return new ResponseEntity<Book>(book, httpHeaders, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+
+
     }
 
 

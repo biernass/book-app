@@ -5,6 +5,7 @@ import com.soft.book.bookapp.entities.Book;
 import com.soft.book.bookapp.entities.BookCategoryType;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -17,5 +18,7 @@ public interface BookService {
      List<BookDto> findBooksByCategory(BookCategoryType bookCategoryType);
 
      Book saveBook(BookDto bookDto);
+
+     Book update(Long id, BookDto bookDto);
 
 }

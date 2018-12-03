@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,7 +79,6 @@ public class BookDatabaseServiceImpl implements BookService {
     }
 
     @Override
-
     public Book saveBook(BookDto bookDto) {
 
         Optional<Author> author = authorRepository.findAuthorByFirstNameAndAndLastName
@@ -94,7 +94,23 @@ public class BookDatabaseServiceImpl implements BookService {
         } else {
             return bookRepository.save(bookConverter.apply(bookDto));
         }
+    }
 
+    @Override
+    public Book update(Long id, BookDto bookDto) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        Optional<Author> author = authorRepository.findAuthorByFirstNameAndAndLastName
+                (bookDto.authorFirstAndLastNameInArray()[0],
+                        bookDto.authorFirstAndLastNameInArray()[1]);
+        if (bookOptional.isPresent()) {
+            Book book = bookConverter.apply(bookDto);
+            authorRepository.save(author.get());
+            book.setAuthor(author.get());
+            book.setId(id);
+            return bookRepository.save(book);
+        } else {
+            throw new BookNotFoundException("Cannot update book with id: " + id + " because book with this id not exist");
+        }
     }
 }
 
