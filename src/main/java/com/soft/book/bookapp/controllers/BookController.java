@@ -88,13 +88,19 @@ public class BookController {
                             .build()
                             .toUri();
             httpHeaders.setLocation(locationURI);
-            return new ResponseEntity<Book>(book, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<Book>(book, httpHeaders, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
 
-
     }
+
+    @DeleteMapping(value = "/book/delete/{id}")
+    public ResponseEntity<Book> deleteBookById(@PathVariable Long id){
+        bookService.deleteBookById(id);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
 
 
 }

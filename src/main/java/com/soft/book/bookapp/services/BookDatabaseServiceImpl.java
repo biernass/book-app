@@ -112,5 +112,10 @@ public class BookDatabaseServiceImpl implements BookService {
             throw new BookNotFoundException("Cannot update book with id: " + id + " because book with this id not exist");
         }
     }
+
+    @Override
+    public void deleteBookById(Long id) {
+        bookRepository.deleteById(id);
+    }
 }
 
