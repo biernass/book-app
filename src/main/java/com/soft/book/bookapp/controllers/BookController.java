@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PostMapping(value = "/books", consumes = "application/json", produces = "application/json")
-    private ResponseEntity<Book> addBook(@RequestBody BookDto bookDto, UriComponentsBuilder uriComponents) {
+    private ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDto, UriComponentsBuilder uriComponents) {
         if (bookDto != null) {
             Book book = bookService.saveBook(bookDto);
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -70,7 +70,7 @@ public class BookController {
                             .build()
                             .toUri();
             httpHeaders.setLocation(locationURI);
-            return new ResponseEntity<Book>(book, httpHeaders, HttpStatus.CREATED);
+            return new ResponseEntity<BookDto>(bookDto, httpHeaders, HttpStatus.CREATED);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -78,7 +78,7 @@ public class BookController {
 
     @PutMapping(value = "/book/update/{id}", consumes = "application/json", produces = "application/json")
     private ResponseEntity<Book> updateBook(@RequestBody BookDto bookDto, @PathVariable Long id,
-                                            UriComponentsBuilder uriComponents) {
+                                               UriComponentsBuilder uriComponents) {
         if (bookDto != null) {
             Book book = bookService.update(id, bookDto);
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -96,11 +96,10 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/book/delete/{id}")
-    public ResponseEntity<Book> deleteBookById(@PathVariable Long id){
+    public ResponseEntity<BookDto> deleteBookById(@PathVariable Long id) {
         bookService.deleteBookById(id);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 
 
 }

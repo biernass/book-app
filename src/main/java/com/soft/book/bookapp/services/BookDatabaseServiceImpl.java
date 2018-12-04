@@ -104,8 +104,10 @@ public class BookDatabaseServiceImpl implements BookService {
                         bookDto.authorFirstAndLastNameInArray()[1]);
         if (bookOptional.isPresent()) {
             Book book = bookConverter.apply(bookDto);
-            authorRepository.save(author.get());
-            book.setAuthor(author.get());
+            if (author.isPresent()) {
+                authorRepository.save(author.get());
+                book.setAuthor(author.get());
+            }
             book.setId(id);
             return bookRepository.save(book);
         } else {
