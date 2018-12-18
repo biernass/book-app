@@ -1,30 +1,26 @@
-package com.soft.book.bookapp.entities;
+package com.soft.book.bookapp.dto;
+
+import com.soft.book.bookapp.entities.Customer;
+import com.soft.book.bookapp.entities.OrderDetail;
+import com.soft.book.bookapp.entities.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "[order]")
-public class Order {
+public class OrderDto {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     private LocalDateTime orderDate;
 
-    @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
-    public Order() {
+    public OrderDto() {
     }
 
     public void setId(Long id) {
@@ -46,4 +42,5 @@ public class Order {
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
+
 }

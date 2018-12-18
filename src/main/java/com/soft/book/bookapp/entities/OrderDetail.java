@@ -14,9 +14,10 @@ public class OrderDetail {
     private Book book;
 
     @ManyToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    private int quantity = 1;
+    private Integer quantity = 1;
 
     private BigDecimal price;
 
@@ -41,7 +42,7 @@ public class OrderDetail {
         this.book = book;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
